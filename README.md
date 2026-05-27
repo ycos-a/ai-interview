@@ -32,9 +32,12 @@
 
 ### 🎬 演示
 
-![Demo Screenshot](Screenshot/1.png) ![Demo Screenshot](Screenshot/2.png) ![Demo Screenshot](Screenshot/3.png) ![Demo Screenshot](Screenshot/4.png)
+![Demo Screenshot](Screenshot/1.png)
+![Demo Screenshot](Screenshot/2.png)
+![Demo Screenshot](Screenshot/3.png)
+![Demo Screenshot](Screenshot/4.png)
 
-*(更多演示图待更新)*
+*查看更多演示请访问 [功能演示说明](docs/功能演示说明.md)*
 
 ---
 
