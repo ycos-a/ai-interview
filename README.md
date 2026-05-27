@@ -32,21 +32,6 @@
 
 ### 🎬 实机演示
 
-#### 首页 & 面试配置
-
-![首页面试配置](Screenshot/1.png)
-
-#### 面试对话 & 能力画像
-
-![面试对话](Screenshot/2.png) | ![能力画像](Screenshot/3.png)
-:---: | :---:
-
-#### 简历优化 & 生成
-
-![简历优化](Screenshot/4.png)
-
-#### 更多实机演示
-
 <p align="center">
   <img src="Screenshot/demo-221739.png" alt="首页" width="32%">
   <img src="Screenshot/demo-221800.png" alt="面试配置" width="32%">
@@ -58,7 +43,9 @@
   <img src="Screenshot/demo-221927.png" alt="简历生成" width="32%">
 </p>
 
-*更多细节请查看 [功能演示说明](docs/功能演示说明.md)*
+<p align="center">
+  <a href="docs/功能演示说明.md">📖 查看完整功能演示说明</a>
+</p>
 
 ---
 
