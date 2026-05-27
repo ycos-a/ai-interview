@@ -27,17 +27,18 @@ class FileSizeExceededError(FileServiceError):
 class FileService:
     """
     文件服务类，仅负责文本提取，不保存文件
-    
+
     支持的文件格式：
     - PDF (.pdf)
     - Word (.docx)
+    - 图片 (.jpg, .jpeg, .png) - 通过 OCR 提取文字
     - 纯文本 (.txt)
     """
 
     def __init__(self, max_file_size_mb: int = 10):
         """初始化文件服务"""
         self.max_file_size_bytes = max_file_size_mb * 1024 * 1024
-        self.allowed_extensions = ['pdf', 'docx', 'txt']
+        self.allowed_extensions = ['pdf', 'docx', 'jpg', 'jpeg', 'png', 'txt']
         logger.info(f"文件服务初始化成功，最大文件大小: {max_file_size_mb}MB")
     
     def _validate_file_type(self, filename: str) -> bool:
@@ -101,7 +102,7 @@ class FileService:
         try:
             logger.info(f"开始读取文本文件: {file_path}")
             encodings = ['utf-8', 'gbk', 'gb2312', 'latin-1']
-            
+
             for encoding in encodings:
                 try:
                     with open(file_path, 'r', encoding=encoding) as f:
@@ -111,20 +112,44 @@ class FileService:
                         return full_text
                 except UnicodeDecodeError:
                     continue
-            
+
             raise ValueError("无法使用常见编码读取文本文件")
         except Exception as e:
             logger.error(f"文本文件读取失败: {str(e)}")
             raise FileServiceError(f"文本文件读取失败: {str(e)}")
+
+    def extract_text_from_image(self, file_path: str) -> str:
+        """通过 OCR 从图片中提取文字（使用 pytesseract）"""
+        try:
+            import pytesseract
+            from PIL import Image
+            logger.info(f"开始 OCR 识别图片: {file_path}")
+
+            image = Image.open(file_path)
+            # 使用中文和英文识别
+            full_text = pytesseract.image_to_string(image, lang='chi_sim+eng')
+
+            if not full_text.strip():
+                raise ValueError("图片 OCR 识别成功但内容为空")
+
+            logger.info(f"图片 OCR 识别成功，提取文本长度: {len(full_text)} 字符")
+            return full_text
+        except ImportError:
+            raise FileServiceError("缺少 pytesseract 或 Pillow 库，请运行: pip install pytesseract pillow")
+        except Exception as e:
+            logger.error(f"图片 OCR 识别失败: {str(e)}")
+            raise FileServiceError(f"图片 OCR 识别失败: {str(e)}")
     
     def extract_text(self, file_path: str) -> str:
         """根据文件类型自动选择提取方法"""
         file_ext = os.path.splitext(file_path)[1].lower()
-        
+
         if file_ext == '.pdf':
             return self.extract_text_from_pdf(file_path)
         elif file_ext == '.docx':
             return self.extract_text_from_docx(file_path)
+        elif file_ext in ['.jpg', '.jpeg', '.png']:
+            return self.extract_text_from_image(file_path)
         elif file_ext == '.txt':
             return self.extract_text_from_txt(file_path)
         else:

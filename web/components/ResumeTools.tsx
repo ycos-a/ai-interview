@@ -666,7 +666,7 @@ export function ResumeTools({ apiConfig, resumeContent, onResumeChange }: Resume
             <input
                 ref={fileInputRef}
                 type="file"
-                accept=".pdf,.doc,.docx,.txt,.md"
+                accept=".pdf,.doc,.docx,.txt,.md,.jpg,.jpeg,.png"
                 onChange={handleFileUpload}
                 className="hidden"
                 id="resume-upload"
