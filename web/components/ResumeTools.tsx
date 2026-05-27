@@ -765,7 +765,7 @@ export function ResumeTools({ apiConfig, resumeContent, onResumeChange }: Resume
                                 {/* Fixed Footer overlay */}
                                 <div className="absolute bottom-0 left-0 right-0 p-4 bg-white/95 backdrop-blur border-t border-gray-100 z-10">
                                     <Button
-                                        onClick={handleAnalyze}
+                                        onClick={() => handleAnalyze()}
                                         disabled={isAnalyzing || !localResume.trim() || !apiConfig}
                                         className="w-full bg-teal-600 hover:bg-teal-700 h-11 text-[15px] font-medium shadow-md shadow-teal-100 transition-all"
                                     >
