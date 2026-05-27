@@ -125,6 +125,20 @@ class FileService:
             from PIL import Image
             logger.info(f"开始 OCR 识别图片: {file_path}")
 
+            # Windows 系统可能需要指定 tesseract 路径
+            import os
+            if os.name == 'nt' and not pytesseract.get_tesseract_version():
+                # 尝试常见的 Windows 安装路径
+                common_paths = [
+                    r"C:\Program Files\Tesseract-OCR\tesseract.exe",
+                    r"C:\Program Files (x86)\Tesseract-OCR\tesseract.exe",
+                ]
+                for path in common_paths:
+                    if os.path.exists(path):
+                        pytesseract.pytesseract.tesseract_cmd = path
+                        logger.info(f"已设置 Tesseract 路径: {path}")
+                        break
+
             image = Image.open(file_path)
             # 使用中文和英文识别
             full_text = pytesseract.image_to_string(image, lang='chi_sim+eng')
