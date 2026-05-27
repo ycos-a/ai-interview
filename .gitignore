@@ -1,10 +1,2 @@
-.vscode
-.chainlit
-__pycache__
-data
-.env
-meta-output
-test
-package-lock.json
-web/yarn.lock
-web/build_log.txt
+venv/
+backend/requirements_utf8.txt
