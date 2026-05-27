@@ -30,14 +30,35 @@
 
 面面-AI求职助手是一个利用大语言模型（LLM）和 LangGraph 状态机技术构建的综合求职辅助系统。它不仅能进行全真模拟面试，还能像专业的职业咨询师一样，通过多智能体协作（Multi-Agent）对简历进行深度诊断和定向优化，帮助求职者全方位提升竞争力。现已上线测试：[面面-AI求职助手](https://interview.1624899.xyz)
 
-### 🎬 演示
+### 🎬 实机演示
 
-![Demo Screenshot](Screenshot/1.png)
-![Demo Screenshot](Screenshot/2.png)
-![Demo Screenshot](Screenshot/3.png)
-![Demo Screenshot](Screenshot/4.png)
+#### 首页 & 面试配置
 
-*查看更多演示请访问 [功能演示说明](docs/功能演示说明.md)*
+![首页面试配置](Screenshot/1.png)
+
+#### 面试对话 & 能力画像
+
+![面试对话](Screenshot/2.png) | ![能力画像](Screenshot/3.png)
+:---: | :---:
+
+#### 简历优化 & 生成
+
+![简历优化](Screenshot/4.png)
+
+#### 更多实机演示
+
+<p align="center">
+  <img src="Screenshot/demo-221739.png" alt="首页" width="32%">
+  <img src="Screenshot/demo-221800.png" alt="面试配置" width="32%">
+  <img src="Screenshot/demo-221817.png" alt="面试对话" width="32%">
+</p>
+<p align="center">
+  <img src="Screenshot/demo-221845.png" alt="能力画像" width="32%">
+  <img src="Screenshot/demo-221904.png" alt="简历分析" width="32%">
+  <img src="Screenshot/demo-221927.png" alt="简历生成" width="32%">
+</p>
+
+*更多细节请查看 [功能演示说明](docs/功能演示说明.md)*
 
 ---
 
