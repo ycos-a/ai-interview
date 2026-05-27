@@ -176,7 +176,7 @@ export function ResumeTools({ apiConfig, resumeContent, onResumeChange }: Resume
         });
     };
 
-    const handleAnalyze = async () => {
+    const handleAnalyze = async (retryCount = 0) => {
         if (!localResume.trim()) {
             toast.error("请输入简历内容");
             return;
@@ -200,18 +200,30 @@ export function ResumeTools({ apiConfig, resumeContent, onResumeChange }: Resume
             if (response.success && response.result) {
                 setAnalyzeResult(response.result);
                 toast.success("分析完成");
-                // 刷新侧边栏历史记录，完成后自动选中新记录
                 await fetchResumeResults();
                 if (response.result_id) {
                     selectResumeResult(response.result_id);
                 }
+                setIsAnalyzing(false);
             } else {
-                toast.error(response.message || "分析失败");
+                if (retryCount < 2) {
+                    toast.warning(`分析未成功，正在重试 (${retryCount + 1}/2)...`);
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    await handleAnalyze(retryCount + 1);
+                } else {
+                    toast.error(response.message || "分析失败，请检查 API 配置");
+                    setIsAnalyzing(false);
+                }
             }
         } catch (error) {
-            toast.error("分析失败，请重试");
-        } finally {
-            setIsAnalyzing(false);
+            if (retryCount < 2) {
+                toast.warning(`分析未成功，正在重试 (${retryCount + 1}/2)...`);
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                await handleAnalyze(retryCount + 1);
+            } else {
+                toast.error("分析失败，请重试");
+                setIsAnalyzing(false);
+            }
         }
     };
 
